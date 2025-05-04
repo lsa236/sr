@@ -117,11 +117,22 @@ void A_output(struct msg message)
 void A_input(struct pkt packet)
 {
     int ack = packet.acknum;
+    int seqfirst, seqlast;
+    bool in_window;
 
     /* If the ACK is corrupted, report */
     if (IsCorrupted(packet)) {
         if (TRACE > 0)
             printf("----A: corrupted ACK is received, do nothing!\n");
+        return;
+    }
+    if (windowcount == 0) return;
+    seqfirst = buffer[windowfirst].seqnum;
+    seqlast  = buffer[windowlast].seqnum;
+    in_window = ((seqfirst <= seqlast) && (ack >= seqfirst && ack <= seqlast))
+             || ((seqfirst >  seqlast) && (ack >= seqfirst || ack <= seqlast));
+    if (!in_window) {
+        /* out‐of‐window ACK: silently ignore (no trace) */
         return;
     }
 
