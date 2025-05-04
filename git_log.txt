@@ -1,0 +1,12 @@
+Author: willLee <leewill622@gmail.com>
+Date:   Sun May 4 18:29:16 2025 +0930
+
+    rewrite a_input, use ackrsp to check and handle with output information
+
+    rewrite and test
+
+commit 6e849f2dc0ed580393834039cb05e875af67e2f0
+Author: willLee <leewill622@gmail.com>
+Date:   Sun May 4 17:40:28 2025 +0930
+
+    create
